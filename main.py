@@ -8,12 +8,12 @@ import os
 app = Flask(__name__)
 CORS(app)
 
-# Configuración de la base de datos
+# Configuración de la base de datos usando variables de entorno
 DB_CONFIG = {
-    'host': 'talquin.bloom.host',
-    'database': 's85166_votaciones',
-    'user': 'u85166_Gvvho8waXy',
-    'password': 'Zr7PIYgRMMcJtdKxXAPm2CaU'
+    'host': os.environ.get('DB_HOST'),
+    'database': os.environ.get('DB_DATABASE'),
+    'user': os.environ.get('DB_USER'),
+    'password': os.environ.get('DB_PASSWORD')
 }
 
 def get_db_connection():
@@ -345,4 +345,4 @@ def internal_error(error):
     }), 500
 
 if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0', port=8000)
+    app.run(debug=True, host='0.0.0.0', port=os.environ.get('PORT', 8000))
